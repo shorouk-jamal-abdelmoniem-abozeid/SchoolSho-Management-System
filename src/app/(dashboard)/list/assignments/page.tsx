@@ -1,17 +1,18 @@
-import Pagination from "@/components/Pagination";
-import Table from "@/components/Table";
-import TableSearch from "@/components/TableSearch";
-import { role, assignmentsData } from "@/lib/data";
-import Image from "next/image";
-import Link from "next/link";
-import FormModal from "@/components/FormModal";
+import Pagination from "@/components/Pagination"
+import Table from "@/components/Table"
+import TableSearch from "@/components/TableSearch"
+import { role, assignmentsData } from "@/lib/data"
+import Image from "next/image"
+import Link from "next/link"
+import FormModal from "@/components/FormModal"
+
 type Assignment = {
-    id: number;
-    subject: string;
-    class: string;
-    teacher: string;
-    dueDate:string;
-};
+    id: number
+    subject: string
+    class: string
+    teacher: string
+    dueDate: string
+}
 
 const columns = [
     { header: "Subject", accessor: "subject" },
@@ -19,10 +20,9 @@ const columns = [
     { header: "Teacher", accessor: "teacher", className: "hidden md:table-cell" },
     { header: "Due Date", accessor: "dueDate", className: "hidden md:table-cell" },
     { header: "Actions", accessor: "actions" }
-];
+]
 
 const AssignmentsListPage = () => {
-
     const renderRow = (item: Assignment) => (
         <>
             <td>
@@ -31,7 +31,6 @@ const AssignmentsListPage = () => {
             <td className="hidden md:table-cell">{item.class}</td>
             <td className="hidden md:table-cell">{item.teacher}</td>
             <td className="hidden md:table-cell">{item.dueDate}</td>
-
             <td>
                 <div className="flex items-center gap-2">
                     {role === "admin" && (
@@ -43,36 +42,31 @@ const AssignmentsListPage = () => {
                 </div>
             </td>
         </>
-    );
-
+    )
 
     return (
         <div className="bg-white rounded-md p-4 flex-1 m-4 my-4">
-            {/* TOP */}
             <div className="flex items-center justify-between">
                 <h1 className="text-lg font-semibold hidden md:block">All Assignments</h1>
                 <div className="flex flex-col md:flex-row items-center w-full md:w-auto gap-4">
                     <TableSearch />
                     <div className="flex items-center gap-4 self-end">
                         <button className="flex items-center justify-center rounded-full w-8 h-8 bg-lamaYellow">
-                            <img src="/filter.png" alt="" width={14} height={14} />
+                            <Image src="/filter.png" alt="" width={14} height={14} />
                         </button>
                         <button className="flex items-center justify-center rounded-full w-8 h-8 bg-lamaYellow">
-                            <img src="/sort.png" alt="" width={14} height={14} />
+                            <Image src="/sort.png" alt="" width={14} height={14} />
                         </button>
                         {role === "admin" && (
-                            <FormModal table="assignment" type="create"  />
-                
+                            <FormModal table="assignment" type="create" />
                         )}
                     </div>
                 </div>
             </div>
-            {/* LIST */}
             <Table columns={columns} renderRow={renderRow} data={assignmentsData} />
-            {/* PAGINATION */}
             <Pagination />
         </div>
-    );
-};
+    )
+}
 
-export default AssignmentsListPage;
+export default AssignmentsListPage
