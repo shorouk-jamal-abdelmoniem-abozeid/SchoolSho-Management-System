@@ -14,8 +14,9 @@ const schema = z.object({
   phone: z.string().min(1, { message: "Phone is required!" }),
   address: z.string().min(1, { message: "Address is required!" }),
   bloodType: z.string().min(1, { message: "Blood Type is required!" }),
-  birthday: z.coerce.date({ message: "Birthday is required!" }),
-  sex: z.enum(["male", "female"], { message: "Sex is required!" }),
+birthday: z.date({
+        error: "Birthday is required!",
+    }),  sex: z.enum(["male", "female"], { message: "Sex is required!" }),
   image: z.any().refine((files) => files instanceof FileList && files.length > 0, {
     message: "Image is required!",
   }),
